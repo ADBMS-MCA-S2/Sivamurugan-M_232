@@ -1,0 +1,106 @@
+Microsoft Windows [Version 10.0.15063]
+(c) 2017 Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MongoDB\Server\5.0\bin>mongo
+MongoDB shell version v5.0.7
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("09dd425e-ffe5-4a3c-bf44-2e9bbbdeaf8a") }
+MongoDB server version: 5.0.7
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting:
+        2022-06-13T13:45:26.808+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> use EMP
+switched to db EMP
+> db.EMPL.find().pretty();
+{
+        "_id" : ObjectId("62a84df6a19cc8b37f4c6e70"),
+        "emp_id" : 1001,
+        "name" : "Sneha",
+        "salary" : 12000,
+        "role" : "OB"
+}
+{
+        "_id" : ObjectId("62a84df9a19cc8b37f4c6e71"),
+        "emp_id" : 1002,
+        "name" : "MSD",
+        "salary" : 8000,
+        "role" : "C and WK"
+}
+{
+        "_id" : ObjectId("62a84dfca19cc8b37f4c6e72"),
+        "emp_id" : 1003,
+        "name" : "Remya",
+        "salary" : 8000,
+        "role" : "OB",
+        "Remark" : [
+                "WC"
+        ]
+}
+{
+        "_id" : ObjectId("62a84dffa19cc8b37f4c6e73"),
+        "emp_id" : 1004,
+        "name" : "Ashok",
+        "salary" : 8000,
+        "role" : "MOB"
+}
+{
+        "_id" : ObjectId("62a84e02a19cc8b37f4c6e74"),
+        "emp_id" : 1005,
+        "name" : "Rishi",
+        "salary" : 8000,
+        "role" : "OB"
+}
+> db.EMPL.update({name:"MSD"},{$set:{role:"C and WK"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.EMPL.update({name:"Remya"},{$push:{Remark:"WC"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.EMPL.find({name:{$regex:"^S"}}).pretty()
+{
+        "_id" : ObjectId("62a84df6a19cc8b37f4c6e70"),
+        "emp_id" : 1001,
+        "name" : "Sneha",
+        "salary" : 12000,
+        "role" : "OB"
+}
+> db.EMPL.find({name:{$regex:"k$"}}).pretty()
+{
+        "_id" : ObjectId("62a84dffa19cc8b37f4c6e73"),
+        "emp_id" : 1004,
+        "name" : "Ashok",
+        "salary" : 8000,
+        "role" : "MOB"
+}
+> db.EMPL.find({name:{$regex:"\S"}}).pretty()
+{
+        "_id" : ObjectId("62a84df6a19cc8b37f4c6e70"),
+        "emp_id" : 1001,
+        "name" : "Sneha",
+        "salary" : 12000,
+        "role" : "OB"
+}
+{
+        "_id" : ObjectId("62a84df9a19cc8b37f4c6e71"),
+        "emp_id" : 1002,
+        "name" : "MSD",
+        "salary" : 8000,
+        "role" : "C and WK"
+}
