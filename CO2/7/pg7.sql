@@ -1,0 +1,13 @@
+create database employee;
+use employee;
+create table new_employee(empid int(10),empname varchar(30),department varchar(30));
+insert into new_employee values(100,'jasmin','mca');
+insert into new_employee values(101,'Rasmi','cs');
+create table department_MCA(deptid int(10),deptname varchar(30));
+create table department_CS(deptid int(10),deptname varchar(30));
+drop table department_cs;
+drop table department_MCA;
+drop table new_employee;
+select * from new_employee;
+select * from department_MCA;
+select * from department_CS;
