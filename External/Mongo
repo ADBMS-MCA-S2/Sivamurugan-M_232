@@ -1,0 +1,79 @@
+> db.createCollection("students")
+{ "ok" : 1 }
+
+QUESTION 1:
+--------------
+
+> db.students.insertOne({_id:1,name:"anjali",place:"kollam",phone:8582639562,vaccination_status:"both vaccinated",RTPCR:"negative",lab_mark:[{internal:30,external:45}],department:"MCA"})
+{ "acknowledged" : true, "insertedId" : 1 }
+> db.students.find().pretty()
+{
+        "_id" : 1,
+        "name" : "anjali",
+        "phone" : 8582639562,
+        "vaccination_ststus" : "both vaccinated",
+        "RTPCR" : "negative",
+        "lab_mark" : [
+                {
+                        "internal" : 30,
+                        "external" : 45
+                }
+        ],
+        "department" : "MCA"
+}
+
+
+QUESTION 2:
+-----------
+
+
+> db.students.insertMany([{_id:2,name:"anuradha",place:"varkala",phone:999263956,vaccination_status:"both vaccinated",RTPCR:"negative",lab_mark:[{internal:40,external:48}],department:"civil"}])
+{ "acknowledged" : true, "insertedIds" : [ 2 ] }
+> db.students.insertOne({_id:3,name:"bismiya",place:"kollam",phone:9945369562,vaccination_ststus:"not vaccinated",RTPCR:"positive",lab_mark:[{internal:50,external:39}],department:"MCA"})
+{ "acknowledged" : true, "insertedId" : 3 }
+> db.students.insertOne({_id:4,name:"vimal",place:"eranakulam",phone:8606369562,vaccination_ststus:"first dose only",RTPCR:"positive",lab_mark:[{internal:40,external:42}],department:"civil"})
+{ "acknowledged" : true, "insertedId" : 4 }
+> db.students.insertOne({_id:5,name:"vivek",place:"kollam",phone:7506369562,vaccination_ststus:"both vaccinated",RTPCR:"negative",lab_mark:[{internal:50,external:50}],department:"MCA"})
+{ "acknowledged" : true, "insertedId" : 5 }
+
+
+QUESTION 3:
+----------
+
+
+> db.students.count({vaccination_ststus:"not vaccinated"})
+1
+
+
+QUESTION 4:
+------------
+
+
+>> db.students.find({department:"MCA"},{name:1,phone:1}).sort({"lab_mark.external":-1})
+{ "_id" : 5, "name" : "vivek", "phone" : 7506369562 }
+{ "_id" : 1, "name" : "anjali", "phone" : 8582639562 }
+{ "_id" : 3, "name" : "bismiya", "phone" : 9945369562 }
+>
+
+QUESTION 5:
+------------
+
+
+> db.students.update({_id:4},{$set:{vaccination_ststus:"both vaccinated"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.find({_id:4}).pretty()
+{
+        "_id" : 4,
+        "name" : "vimal",
+        "place" : "eranakulam",
+        "phone" : 8606369562,
+        "vaccination_ststus" : "both vaccinated",
+        "RTPCR" : "positive",
+        "lab_mark" : [
+                {
+                        "internal" : 40,
+                        "external" : 42
+                }
+        ],
+        "department" : "civil"
+}
